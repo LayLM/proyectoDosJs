@@ -1,0 +1,23 @@
+/* #0B666A verde*/
+/* #951ABE violeta */
+/* barbra */
+
+
+
+
+
+
+.logoNavbar {
+height: 50px;
+}
+
+.carousel-item img {
+    width: 30%; 
+    height: 500px; 
+  
+}
+
+.btn {
+    background-color: #0B666A;
+    color: white;
+}
