@@ -11,6 +11,8 @@
 height: 50px;
 }
 
+
+
 .carousel-item img {
     width: 30%; 
     height: 500px; 
@@ -20,4 +22,19 @@ height: 50px;
 .btn {
     background-color: #0B666A;
     color: white;
+}
+
+#contenedorProductos {
+display: flex;
+flex-wrap: wrap;
+margin: 8%;
+}
+
+
+
+
+#carrito {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

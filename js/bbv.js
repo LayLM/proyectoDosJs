@@ -10,7 +10,7 @@ class Producto {
 
 const productos = [
     {
-        name: "Alfajor de maní",
+        name: "Alfajor de maní y chocolate FLV",
         id: "001",
         type: "Alfajores",
         price: 800,
@@ -30,7 +30,7 @@ function imprimirProductos (){
   for (const producto of productos) {
     let card = document.createElement("div");
     card.innerHTML = `
-    <div class="card" style="width: 18rem;">
+    <div class="card" style="width: 15rem;">
     <img src="${producto.img}" class="card-img-top" alt="">
     <div class="card-body producto">
       <h5 class="card-title">${producto.name}</h5>
