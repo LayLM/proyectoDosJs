@@ -22,7 +22,19 @@ const productos = [
   { name: "Galletitas Pepas de Membrillo FLV", id: "004", type: "Galletitas", price: 580, stock: 20, img: "./images/pepas.webp" },
   {name: "Yogurt sabor Frutilla FLV", id: "005", type: "Yogures", price: 505, stock: 8, img: "./images/yogurt.webp"},];
 
-const carrito = []; 
+
+
+
+
+  const carrito = []; 
+
+
+
+
+
+
+
+
 
 function imprimirProductos() {
   let contenedor = document.getElementById("contenedorProductos");
@@ -124,7 +136,6 @@ imprimirProductos();
 
 
 
-  guardarCarritoEnLocalStorage();
 
 
 
@@ -132,7 +143,30 @@ imprimirProductos();
 function guardarCarritoEnLocalStorage() {
   localStorage.setItem('carrito', JSON.stringify(carrito));
 }
+
+
+
+
+
+//----------------
+
+
 function cargarCarritoDesdeLocalStorage() {
-  JSON.parse(localStorage.getItem('carrito'));
-  
+  const contenidoEnStorage = JSON.parse(localStorage.getItem('carrito'));
+
+  if (contenidoEnStorage) {
+    let array = [];
+
+    for (const objeto of contenidoEnStorage) {
+      const productoEnCarrito = new ProductoCarrito(objeto);
+      productoEnCarrito.actualizarPrecioTotal();
+      array.push(productoEnCarrito);
+    }
+
+    return array;
+  }
+
+  return [];
 }
+
+cargarCarritoDesdeLocalStorage()
