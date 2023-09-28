@@ -2,6 +2,25 @@
 function guardarCarritoEnLocalStorage() {
   localStorage.setItem('carrito', JSON.stringify(carrito));
 }
+
+//funcion actualizarCarrito
+function actualizarCarrito() {
+  const listaCarrito = document.getElementById("listaCarrito");
+  listaCarrito.innerHTML = "";
+  let total = 0;
+
+  for (const producto of carrito) {
+    const listItem = document.createElement("li");
+    listItem.textContent = `${producto.nombre} x${producto.cantidad} - $${producto.precioTotal}`;
+    listaCarrito.appendChild(listItem);
+    total += producto.precioTotal;
+  }
+
+  const totalElement = document.getElementById("total");
+  totalElement.textContent = total.toFixed(2);
+
+}
+
 // funcion cargar carrito desde storage
 function cargarCarritoDesdeLocalStorage() {
   const carritoGuardado = localStorage.getItem('carrito');
@@ -43,6 +62,27 @@ const productos = [
 //array carrito
 const carrito = [];
 
+
+
+//funcion agregarAlCarrito 
+function agregarAlCarrito(idProducto) {
+  const productoSeleccionado = productos.find(producto => producto.id === idProducto);
+  if (productoSeleccionado) {
+    let productoEnCarrito = carrito.find(item => item.id === idProducto);
+    if (productoEnCarrito) {
+      productoEnCarrito.agregarUnidad();
+      productoEnCarrito.actualizarPrecioTotal();
+    } else {
+      carrito.push(new ProductoCarrito(productoSeleccionado));
+    }
+    //INVOCO ACTUALIZAR CARRITO
+    actualizarCarrito();
+    //INVOCO GUARDAR CARRITO EN STORAGE
+    guardarCarritoEnLocalStorage();
+
+  }
+}
+
 //funcion imprimirProductos
 function imprimirProductos() {
   let contenedor = document.getElementById("contenedorProductos");
@@ -72,24 +112,7 @@ function imprimirProductos() {
   });
 }
 
-//funcion agregarAlCarrito 
-function agregarAlCarrito(idProducto) {
-  const productoSeleccionado = productos.find(producto => producto.id === idProducto);
-  if (productoSeleccionado) {
-    let productoEnCarrito = carrito.find(item => item.id === idProducto);
-    if (productoEnCarrito) {
-      productoEnCarrito.agregarUnidad();
-      productoEnCarrito.actualizarPrecioTotal();
-    } else {
-      carrito.push(new ProductoCarrito(productoSeleccionado));
-    }
-    //INVOCO ACTUALIZAR CARRITO
-    actualizarCarrito();
-    //INVOCO GUARDAR CARRITO EN STORAGE
-    guardarCarritoEnLocalStorage();
 
-  }
-}
 
 
 //clase ProdutoCarrito
@@ -120,23 +143,7 @@ class ProductoCarrito {
 }
 
 
-//funcion actualizarCarrito
-function actualizarCarrito() {
-  const listaCarrito = document.getElementById("listaCarrito");
-  listaCarrito.innerHTML = "";
-  let total = 0;
 
-  for (const producto of carrito) {
-    const listItem = document.createElement("li");
-    listItem.textContent = `${producto.nombre} x${producto.cantidad} - $${producto.precioTotal}`;
-    listaCarrito.appendChild(listItem);
-    total += producto.precioTotal;
-  }
-
-  const totalElement = document.getElementById("total");
-  totalElement.textContent = total.toFixed(2);
-
-}
 // INVOCO CARGAR CARRITO
 cargarCarritoDesdeLocalStorage();
 
