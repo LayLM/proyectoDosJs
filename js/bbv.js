@@ -135,9 +135,45 @@ class ProductoCarrito {
     this.precioTotal = this.precio * this.cantidad;
   }
 }
+// Función para realizar una compra
+function realizarCompra() {
+  // Verificar si hay productos en el carrito
+  if (carrito.length === 0) {
+    alert("El carrito está vacío. Agrega productos antes de comprar.");
+    return;
+  }
 
-// Invoco la función para cargar el carrito desde el almacenamiento local
-cargarCarritoDesdeLocalStorage();
+  // Procesar la compra (en este ejemplo, simplemente reducimos el stock y vaciamos el carrito)
+  for (const productoCarrito of carrito) {
+    const productoEnStock = productos.find(producto => producto.id === productoCarrito.id);
+    if (productoEnStock) {
+      productoEnStock.stock -= productoCarrito.cantidad;
+    }
+  }
 
-// Invoco la función para imprimir los productos en la página
-imprimirProductos();
+  // Vaciar el carrito
+  carrito.length = 0;
+
+  // Actualizar el carrito en el almacenamiento local
+  guardarCarritoEnLocalStorage();
+
+  // Actualizar la interfaz de usuario
+  actualizarCarrito();
+
+  // Mostrar un mensaje de éxito
+  alert("¡Compra realizada con éxito!");
+}
+
+
+// Coloca el código dentro del evento DOMContentLoaded
+document.addEventListener("DOMContentLoaded", function() {
+  // Asociar evento de clic al botón de compra del carrito
+  const botonComprarCarrito = document.getElementById("botonComprarCarrito");
+  botonComprarCarrito.addEventListener("click", () => {
+    realizarCompra();
+  });
+
+  // Invocar otras funciones necesarias, como cargar el carrito y mostrar productos
+  cargarCarritoDesdeLocalStorage();
+  imprimirProductos();
+});
