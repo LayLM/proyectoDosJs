@@ -1,27 +1,26 @@
-// funcion guardar carrito desde storage
+// Función para guardar el carrito en el almacenamiento local
 function guardarCarritoEnLocalStorage() {
   localStorage.setItem('carrito', JSON.stringify(carrito));
 }
 
-//funcion actualizarCarrito
+// Función para actualizar el carrito en la página
 function actualizarCarrito() {
   const listaCarrito = document.getElementById("listaCarrito");
   listaCarrito.innerHTML = "";
   let total = 0;
 
   for (const producto of carrito) {
-    const listItem = document.createElement("li");
-    listItem.textContent = `${producto.nombre} x${producto.cantidad} - $${producto.precioTotal}`;
-    listaCarrito.appendChild(listItem);
+    const elementoLista = document.createElement("li");
+    elementoLista.textContent = `${producto.nombre} x${producto.cantidad} - $${producto.precioTotal}`;
+    listaCarrito.appendChild(elementoLista);
     total += producto.precioTotal;
   }
 
-  const totalElement = document.getElementById("total");
-  totalElement.textContent = total.toFixed(2);
-
+  const totalElemento = document.getElementById("total");
+  totalElemento.textContent = total.toFixed(2);
 }
 
-// funcion cargar carrito desde storage
+// Función para cargar el carrito desde el almacenamiento local
 function cargarCarritoDesdeLocalStorage() {
   const carritoGuardado = localStorage.getItem('carrito');
   if (carritoGuardado) {
@@ -40,31 +39,30 @@ function cargarCarritoDesdeLocalStorage() {
   }
 }
 
-//clase producto
+// Clase Producto
 class Producto {
-  constructor(name, id, type, price, stock) {
-    this.name = name;
+  constructor(nombre, id, tipo, precio, stock) {
+    this.nombre = nombre;
     this.id = id;
-    this.type = type;
-    this.price = price;
+    this.tipo = tipo;
+    this.precio = precio;
     this.stock = stock;
   }
 }
 
-//array productos
+// Array de productos
 const productos = [
-  { name: "Alfajor de maní y chocolate FLV", id: "001", type: "Alfajores", price: 800, stock: 10, img: "./images/alfajor.webp" },
-  { name: "Bebible sabor chocolate FLV", id: "002", type: "Bebidas", price: 610, stock: 5, img: "./images/chocolatada.webp" },
-  { name: "Hummus Garbanzos y Paltas FLV", id: "003", type: "Untables", price: 1005, stock: 15, img: "./images/hummus.webp" },
-  { name: "Galletitas Pepas de Membrillo FLV", id: "004", type: "Galletitas", price: 580, stock: 20, img: "./images/pepas.webp" },
-  { name: "Yogurt sabor Frutilla FLV", id: "005", type: "Yogures", price: 505, stock: 8, img: "./images/yogurt.webp" },];
+  { nombre: "Alfajor de maní y chocolate FLV", id: "001", tipo: "Alfajores", precio: 800, stock: 10, img: "./images/alfajor.webp" },
+  { nombre: "Bebida sabor chocolate FLV", id: "002", tipo: "Bebidas", precio: 610, stock: 5, img: "./images/chocolatada.webp" },
+  { nombre: "Hummus Garbanzos y Paltas FLV", id: "003", tipo: "Untables", precio: 1005, stock: 15, img: "./images/hummus.webp" },
+  { nombre: "Galletitas Pepas de Membrillo FLV", id: "004", tipo: "Galletitas", precio: 580, stock: 20, img: "./images/pepas.webp" },
+  { nombre: "Yogurt sabor Frutilla FLV", id: "005", tipo: "Yogures", precio: 505, stock: 8, img: "./images/yogurt.webp" },
+];
 
-//array carrito
+// Array del carrito
 const carrito = [];
 
-
-
-//funcion agregarAlCarrito 
+// Función para agregar un producto al carrito
 function agregarAlCarrito(idProducto) {
   const productoSeleccionado = productos.find(producto => producto.id === idProducto);
   if (productoSeleccionado) {
@@ -75,15 +73,14 @@ function agregarAlCarrito(idProducto) {
     } else {
       carrito.push(new ProductoCarrito(productoSeleccionado));
     }
-    //INVOCO ACTUALIZAR CARRITO
+    // Invoco la función para actualizar el carrito
     actualizarCarrito();
-    //INVOCO GUARDAR CARRITO EN STORAGE
+    // Invoco la función para guardar el carrito en el almacenamiento local
     guardarCarritoEnLocalStorage();
-
   }
 }
 
-//funcion imprimirProductos
+// Función para imprimir los productos en la página
 function imprimirProductos() {
   let contenedor = document.getElementById("contenedorProductos");
 
@@ -93,9 +90,9 @@ function imprimirProductos() {
       <div class="card" style="width: 15rem;">
           <img src="${producto.img}" class="card-img-top" alt="">
           <div class="card-body producto">
-              <h5 class="card-title">${producto.name}</h5>
-              <p class="card-text">$${producto.price}</p>
-              <a href="#" class="btn agregar-al-carrito" data-id="${producto.id}" data-precio="${producto.price}">Comprar</a>
+              <h5 class="card-title">${producto.nombre}</h5>
+              <p class="card-text">$${producto.precio}</p>
+              <a href="#" class="btn agregar-al-carrito" data-id="${producto.id}" data-precio="${producto.precio}">Comprar</a>
           </div>
       </div>
       `;
@@ -106,21 +103,18 @@ function imprimirProductos() {
   botonesComprar.forEach(boton => {
     boton.addEventListener("click", (event) => {
       const idProducto = event.target.getAttribute("data-id");
-      //INVOCO AGREGAR AL CARRITO
+      // Invoco la función para agregar al carrito
       agregarAlCarrito(idProducto);
     });
   });
 }
 
-
-
-
-//clase ProdutoCarrito
+// Clase ProductoCarrito
 class ProductoCarrito {
   constructor(producto) {
     this.id = producto.id;
-    this.nombre = producto.name;
-    this.precio = producto.price;
+    this.nombre = producto.nombre;
+    this.precio = producto.precio;
     this.cantidad = 1;
     this.precioTotal = this.precio * this.cantidad;
   }
@@ -142,11 +136,8 @@ class ProductoCarrito {
   }
 }
 
-
-
-// INVOCO CARGAR CARRITO
+// Invoco la función para cargar el carrito desde el almacenamiento local
 cargarCarritoDesdeLocalStorage();
 
-// INVOCO IMPRIMIR PRODUCTOS
+// Invoco la función para imprimir los productos en la página
 imprimirProductos();
-
