@@ -1,0 +1,26 @@
+[
+    {
+        "nombre": "Medallón Aduki Hungaro",
+        "id": 6,
+        "tipo": "Medallones",
+        "precio": 1500,
+        "stock": 100,
+        "img": "./images/aduki.webp"
+    },
+    {
+        "nombre": "Medallón Lentejón Canadiense",
+        "id": 7,
+        "tipo": "Medallones",
+        "precio": 1800,
+        "stock": 80,
+        "img": "./images/lenteja.webp"
+    },
+    {
+        "nombre": "Medallón Quinoa Mediterranea",
+        "id": 8,
+        "tipo": "Medallones",
+        "precio": 2300,
+        "stock": 50,
+        "img": "./images/quinoa.webp"
+    }
+]

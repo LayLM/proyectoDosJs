@@ -139,7 +139,11 @@ class ProductoCarrito {
 function realizarCompra() {
   // Verificar si hay productos en el carrito
   if (carrito.length === 0) {
-    alert("El carrito está vacío. Agrega productos antes de comprar.");
+    Swal.fire({
+      icon: 'error',
+      title: 'El carrito está vacío',
+      text: 'Agrega productos antes de comprar.',
+    });
     return;
   }
 
@@ -161,12 +165,23 @@ function realizarCompra() {
   actualizarCarrito();
 
   // Mostrar un mensaje de éxito
-  alert("¡Compra realizada con éxito!");
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000, // Duración en milisegundos (3 segundos en este caso)
+    timerProgressBar: true,
+  });
+
+  Toast.fire({
+    icon: 'success',
+    title: 'Compra realizada con éxito',
+  });
 }
 
 
 // Coloca el código dentro del evento DOMContentLoaded
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   // Asociar evento de clic al botón de compra del carrito
   const botonComprarCarrito = document.getElementById("botonComprarCarrito");
   botonComprarCarrito.addEventListener("click", () => {
