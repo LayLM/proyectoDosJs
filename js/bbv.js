@@ -82,7 +82,7 @@ function imprimirProductos() {
           <div class="card-body producto">
               <h5 class="card-title">${producto.nombre}</h5>
               <p class="card-text">$${producto.precio}</p>
-              <a href="#" class="btn agregar-al-carrito" data-id="${producto.id}" data-precio="${producto.precio}">Comprar</a>
+              <button href="#" class="btn agregar-al-carrito" data-id="${producto.id}" data-precio="${producto.precio}">Comprar</button>
           </div>
       </div>
       `;
@@ -200,7 +200,7 @@ function mostrarProductos(productos) {
           <div class="card-body producto">
               <h5 class="card-title">${producto.nombre}</h5>
               <p class="card-text">$${producto.precio}</p>
-              <a href="#" class="btn agregar-al-carrito" data-id="${producto.id}" data-precio="${producto.precio}">Comprar</a>
+              <button href="#" class="btn agregar-al-carrito" data-id="${producto.id}" data-precio="${producto.precio}">Comprar</button>
           </div>
       </div>
     `;
