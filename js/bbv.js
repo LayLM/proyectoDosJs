@@ -210,7 +210,7 @@ function mostrarProductos(productos) {
   const botonesComprar = document.querySelectorAll(".agregar-al-carrito");
   botonesComprar.forEach(boton => {
     boton.addEventListener("click", (event) => {
-      event.preventDefault(); // Evitar que el enlace realice una acción por defecto (navegar a otra página)
+      event.preventDefault(); 
       const idProducto = event.target.getAttribute("data-id");
       const precioProducto = parseFloat(event.target.getAttribute("data-precio"));
       const productoEnCarrito = carrito.find(item => item.id === idProducto);
@@ -231,9 +231,6 @@ function mostrarProductos(productos) {
     });
   });
 }
-
-// ...
-
 
 cargarDatosDesdeJSON();
 
