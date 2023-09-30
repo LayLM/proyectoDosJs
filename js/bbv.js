@@ -210,10 +210,52 @@ function mostrarProductos(productos) {
   const botonesComprar = document.querySelectorAll(".agregar-al-carrito");
   botonesComprar.forEach(boton => {
     boton.addEventListener("click", (event) => {
+      event.preventDefault(); // Evitar que el enlace realice una acción por defecto (navegar a otra página)
       const idProducto = event.target.getAttribute("data-id");
-      agregarAlCarrito(idProducto);
+      const precioProducto = parseFloat(event.target.getAttribute("data-precio"));
+      const productoEnCarrito = carrito.find(item => item.id === idProducto);
+
+      if (productoEnCarrito) {
+        productoEnCarrito.agregarUnidad();
+        productoEnCarrito.actualizarPrecioTotal();
+      } else {
+        const productoSeleccionado = productos.find(producto => producto.id === idProducto);
+        if (productoSeleccionado) {
+          const productoCarrito = new ProductoCarrito(productoSeleccionado);
+          carrito.push(productoCarrito);
+        }
+      }
+
+      actualizarCarrito();
+      guardarCarritoEnLocalStorage();
     });
   });
 }
 
+// ...
+
+
 cargarDatosDesdeJSON();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
